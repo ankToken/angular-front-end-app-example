@@ -1,6 +1,8 @@
 # ClientsApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.4.
+This is an App to consume Clients module project hosted here. This was made using Angular and Typescript.
+You can use this code if you need it.
 ___
 ## Modules
 - Clients module.
