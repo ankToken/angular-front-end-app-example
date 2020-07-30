@@ -6,6 +6,12 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ClientsComponent } from './clients/clients.component';
 import { ClientService } from './clients/client.service';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  {path: '', redirectTo: 'clients', pathMatch: 'full'},
+  {path: 'clients', component: ClientsComponent},
+];
 
 @NgModule({
   declarations: [
@@ -15,7 +21,8 @@ import { ClientService } from './clients/client.service';
     ClientsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [
     ClientService
