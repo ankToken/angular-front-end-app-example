@@ -1,7 +1,7 @@
 export class Client {
   id: number;
   name: string;
-  last_name: string;
+  lastName: string;
   email: string;
   createAt: string;
 }
