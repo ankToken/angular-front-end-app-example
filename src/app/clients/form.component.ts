@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Client } from './client';
+import { ClientService } from './client.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form',
@@ -7,17 +10,40 @@ import { Client } from './client';
 })
 export class FormComponent implements OnInit {
 
-  public client: Client = new Client;
+  public client: Client = new Client();
   public title: string = "Create new Client";
 
-  constructor() { }
+  constructor(private clientService: ClientService, private router: Router,
+  private activatedroute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.loadClient();
   }
+
+  loadClient(): void {
+    this.activatedroute.params.subscribe(params => {
+      let id = params['id']
+      if (id){
+        this.clientService.getClient(id).subscribe((client)=> this.client = client)
+      }
+    });
+  }
+
 
   public create(): void{
-    console.log("clicked!");
-    console.log(this.client);
+    this.clientService.create(this.client)
+    .subscribe(client => {
+      this.router.navigate(['/clients'])
+      swal('New client', `Client ${client.name} successfully created`, 'success')
+    }
+    );
   }
 
+  public update(): void{
+    this.clientService.update(this.client)
+    .subscribe(client => {
+      this.router.navigate(['/clients'])
+      swal('Client updated', `Client ${client.name} successfully updated`, 'success')
+    });
+  }
 }
