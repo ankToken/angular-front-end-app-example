@@ -6,7 +6,10 @@
   <div class="my-2 text-left">
     <button class="btn btn-rounded btn-primary" type="button" [routerLink] ="['/clients/form']" >Create Client</button>
   </div>
-  <table class="table table-table-bordered table-striped">
+  <div *ngIf="clients?.length == 0" class="alert alert-info">
+    No registry in the database
+  </div>
+  <table class="table table-table-bordered table-striped" *ngIf="clients?.length>0">
   <thead>
     <tr>
       <th>ID</th>
@@ -14,6 +17,8 @@
       <th>Last name</th>
       <th>Email</th>
       <th>Created At</th>
+      <th>Edit</th>
+      <th>Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -23,6 +28,12 @@
       <td>{{ client.last_name }}</td>
       <td>{{ client.email }}</td>
       <td>{{ client.createAt }}</td>
+      <td>
+        <button type="button" name="button" [routerLink]="['/clients/form', client.id]" class="btn btn-primary">Edit</button>
+      </td>
+      <td>
+        <button type="button" name="button" (click)='delete(client)' class="btn btn-danger btn-sm">Delete</button>
+      </td>
     </tr>
   </tbody>
   </table>
