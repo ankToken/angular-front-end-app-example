@@ -33,6 +33,11 @@ export class ClientService {
   create(client: Client) : Observable<any> {
     return this.http.post<any>(this.urlEndpoint, client, {headers: this.httpHeaders}).pipe(
       catchError(e => {
+
+        if(e.status==400){
+          return throwError(e);
+        }
+
         swal('Error while saving this client', e.error.message, 'error');
         return throwError(e);
       })
@@ -42,6 +47,11 @@ export class ClientService {
   update(client: Client) : Observable<any> {
     return this.http.put<any>(`${this.urlEndpoint}/${client.id}`, client, {headers: this.httpHeaders}).pipe(
       catchError(e => {
+
+        if(e.status==400){
+          return throwError(e);
+        }
+
         swal('Error while updating this client', e.error.message, 'error');
         return throwError(e);
       })
